@@ -20,7 +20,7 @@
 include /usr/local/share/luggage/luggage.make
 
 TITLE=Eclipse-Classic-SDK-32bit
-REVERSE_DOMAIN=ca.concordia.cda
+REVERSE_DOMAIN=com.example.corp
 PACKAGE_VERSION=3.6.2
 
 PAYLOAD=unpack-eclipse
