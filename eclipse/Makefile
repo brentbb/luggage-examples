@@ -25,8 +25,8 @@ PACKAGE_VERSION=3.6.2
 
 PAYLOAD=unpack-eclipse
 
-ECLIPSE_DIST_FILE=eclipse-SDK-3.6.2-macosx-cocoa.tar.gz
-ECLIPSE_DIST_URL=http://mirror.cc.vt.edu/pub/eclipse/eclipse/downloads/drops/R-3.6.2-201102101200/${ECLIPSE_DIST_FILE}
+ECLIPSE_DIST_FILE=eclipse-SDK-${PACKAGE_VERSION}-macosx-cocoa.tar.gz
+ECLIPSE_DIST_URL=http://mirror.cc.vt.edu/pub/eclipse/eclipse/downloads/drops/R-${PACKAGE_VERSION}-201102101200/${ECLIPSE_DIST_FILE}
 
 unpack-eclipse: l_Applications
 	curl ${ECLIPSE_DIST_URL} -O
