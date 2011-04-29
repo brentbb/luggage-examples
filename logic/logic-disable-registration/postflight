@@ -1,0 +1,18 @@
+#!/bin/sh
+
+DEFAULTS=/usr/bin/defaults
+
+HOST_UUID=`/usr/sbin/system_profiler SPHardwareDataType | /usr/bin/grep UUID | /usr/bin/awk '{ print $3 }'`
+USERPREFS_DIR="/System/Library/User Template/English.lproj/Library/Preferences"
+REGLOGIC_DOMAIN="com.apple.RegLogicStudio"
+REGLOGIC_BYHOST="${USERPREFS_DIR}/ByHost/${REGLOGIC_DOMAIN}.${HOST_UUID}"
+
+# system-wide
+$DEFAULTS write "/Library/Preferences/${REGLOGIC_DOMAIN}" AECoreTechRegister YES
+
+# for the ByHost...
+$DEFAULTS write "${REGLOGIC_BYHOST}" AECoreTechDisplayedRegPanelCount -integer 2
+$DEFAULTS write "${REGLOGIC_BYHOST}" AECoreTechNotSentCount -integer 6
+$DEFAULTS write "${REGLOGIC_BYHOST}" AECoreTechRegister YES
+
+exit 0

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>MPEFont</key>
+	<string>Arial</string>
+	<key>MPEFontStyle</key>
+	<string>Regular</string>
+	<key>MPESelectedBinary</key>
+	<string>ch.sttz.mplayerosx.extended.binaries.officialsvnwithmt</string>
+	<key>SUEnableAutomaticChecks</key>
+	<false/>
+	<key>SUHasLaunchedBefore</key>
+	<true/>
+	<key>SUSendProfileInfo</key>
+	<false/>
+</dict>
+</plist>
