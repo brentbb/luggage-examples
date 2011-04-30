@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AutoConfigure:CommandH</key>
+	<true/>
+	<key>AutoConfigure:CommandTilde</key>
+	<true/>
+	<key>AutoConfigure:ShowFontPanel</key>
+	<true/>
+	<key>LastAppVersion</key>
+	<string>3.5.3</string>
+	<key>RegisteredUser:EmailAddress</key>
+	<string>None provided</string>
+	<key>RegisteredUser:UserName</key>
+	<string>Not Registered</string>
+	<key>SUSoftwareUpdateEnabled</key>
+	<false/>
+	<key>SUSoftwareUpdateHasCompletedFirstRun</key>
+	<true/>
+	<key>Services:FirstRunDialogVersion</key>
+	<integer>1</integer>
+	<key>Services:FirstRunOpenedManualVersion</key>
+	<integer>1</integer>
+	<key>Startup:Action</key>
+	<string>None</string>
+	<key>VersionChecking:AutoCheck</key>
+	<false/>
+	<key>VersionChecking:LastCheck</key>
+	<integer>3333963143</integer>
+	<key>VersionChecking:LatestVersion</key>
+	<integer>36732928</integer>
+</dict>
+</plist>
