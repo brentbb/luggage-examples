@@ -15,15 +15,15 @@
 #
 #  Author:  Tim S
 #  Created: 2011/04/19
-#  Last Modified: 2011/04/22
+#  Last Modified: 2011/06/09
 #
 #  Description:  Download and package the specified version of VLC (PowerPC or Intel), and add user template plist for update-check suppression.
 
 include /usr/local/share/luggage/luggage.make
 
 TITLE=VLC
-REVERSE_DOMAIN=com.example.corp
-PACKAGE_VERSION=1.1.9
+REVERSE_DOMAIN=org.videolan
+PACKAGE_VERSION=1.1.10
 # run make with ARCH=PowerPC to build the PPC version
 ARCH=i386
 PAYLOAD=undmg-applications-vlc \
