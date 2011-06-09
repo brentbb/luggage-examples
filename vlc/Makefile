@@ -35,15 +35,14 @@ ifeq (${ARCH},PowerPC)
 	TITLE=VLC-PowerPC
 endif
 
-# using mirror from Montreal	
-VLC_URL=http://iweb.dl.sourceforge.net/project/vlc/${PACKAGE_VERSION}/macosx/${VLC_FILE}
+VLC_URL=http://downloads.sourceforge.net/project/vlc/${PACKAGE_VERSION}/macosx/${VLC_FILE}
 SCRATCH_MOUNT=${SCRATCH_D}/dmgmount
 
 undmg-applications-vlc:	l_Applications
-	curl -O ${VLC_URL}
-	@sudo mkdir ${SCRATCH_MOUNT}
+	curl -L -O ${VLC_URL}
+	@sudo mkdir -p ${SCRATCH_MOUNT}
 	@sudo hdiutil attach ${VLC_FILE} -mountpoint ${SCRATCH_MOUNT}
-	@sudo ${CP} -R ${SCRATCH_MOUNT}/VLC.app ${WORK_D}/Applications
+	@sudo ${DITTO} --noqtn ${SCRATCH_MOUNT}/VLC.app ${WORK_D}/Applications/VLC.app
 	@sudo chown -R root:admin ${WORK_D}/Applications/VLC.app
 	@sudo hdiutil detach ${SCRATCH_MOUNT}
 	# since the downloaded file has the same name as what we might be building...
