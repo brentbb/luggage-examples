@@ -34,7 +34,7 @@ unzip-applications-space-%: %.zip l_Applications
 
 TITLE=TheUnarchiver
 REVERSE_DOMAIN=cx.c3.wakaba
-PACKAGE_VERSION=2.7
+PACKAGE_VERSION=2.7.1
 PACKAGE_MAJOR=2
 PACKAGE_MINOR=7
 
