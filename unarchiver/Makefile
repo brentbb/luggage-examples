@@ -15,7 +15,7 @@
 #
 #  Author:  Brent B
 #  Created: 2011/04/21
-#  Last Modified: 2011/04/21
+#  Last Modified: 2011/07/13
 #
 #  Description:  This Makefile will download the version of The Unarchiver specified
 #    in the PACKAGE_VERSION variable from Dag Agren's Google Code site,
