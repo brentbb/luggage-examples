@@ -38,6 +38,7 @@ PAYLOAD=pack-Library-PreferencePanes-${PERIAN_PREFPANE} \
 		pack-Library-QuickTime-Perian.component \
 		pack-Library-QuickTime-AC3MovieImport.component \
 		pack-Library-Audio-PlugIns-Components-A52Codec.component \
+		pack-Library-Preferences-org.perian.Perian.plist \
 		pack-user-template-plist-org.perian.Perian.plist \
 		pack-user-template-plist-com.cod3r.a52codec.plist \
 		cleanup-prefpane
