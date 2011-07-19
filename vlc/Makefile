@@ -14,8 +14,9 @@
 #   limitations under the License.
 #
 #  Author:  Tim S
+#  Modified by: Brent B
 #  Created: 2011/04/19
-#  Last Modified: 2011/06/09
+#  Last Modified: 2011/07/18
 #
 #  Description:  Download and package the specified version of VLC (PowerPC or Intel), and add user template plist for update-check suppression.
 
@@ -29,22 +30,28 @@ ARCH=i386
 PAYLOAD=undmg-applications-vlc \
 		pack-user-template-plist-org.videolan.vlc.plist
 
-VLC_FILE=vlc-${PACKAGE_VERSION}.dmg
+#DIST_SRC used in URL
+VLC_DIST_SRC_FILE=vlc-${PACKAGE_VERSION}.dmg
 ifeq (${ARCH},PowerPC)
-	VLC_FILE=vlc-${PACKAGE_VERSION}-powerpc.dmg
+	VLC_DIST_SRC_FILE=vlc-${PACKAGE_VERSION}-powerpc.dmg
 	TITLE=VLC-PowerPC
 endif
 
-VLC_URL=http://downloads.sourceforge.net/project/vlc/${PACKAGE_VERSION}/macosx/${VLC_FILE}
+VLC_DIST_URL=http://downloads.sourceforge.net/project/vlc/${PACKAGE_VERSION}/macosx/${VLC_DIST_SRC_FILE}
+#Download the dmg to this filename, we use an underscore to avoid conflicting with our dmg output
+VLC_DIST_TMP_FILE=${TITLE}_${PACKAGE_VERSION}.dmg
 SCRATCH_MOUNT=${SCRATCH_D}/dmgmount
 
-undmg-applications-vlc:	l_Applications
-	curl -L -O ${VLC_URL}
+${VLC_DIST_TMP_FILE}:
+	curl -L -o ${VLC_DIST_TMP_FILE} ${VLC_DIST_URL}
+
+undmg-applications-vlc:	l_Applications ${VLC_DIST_TMP_FILE}
 	@sudo mkdir -p ${SCRATCH_MOUNT}
-	@sudo hdiutil attach ${VLC_FILE} -mountpoint ${SCRATCH_MOUNT}
+	@sudo hdiutil attach ${VLC_DIST_TMP_FILE} -mountpoint ${SCRATCH_MOUNT}
 	@sudo ${DITTO} --noqtn ${SCRATCH_MOUNT}/VLC.app ${WORK_D}/Applications/VLC.app
 	@sudo chown -R root:admin ${WORK_D}/Applications/VLC.app
 	@sudo hdiutil detach ${SCRATCH_MOUNT}
-	# since the downloaded file has the same name as what we might be building...
-	@sudo rm ${VLC_FILE}
 	@sudo rm -R ${SCRATCH_MOUNT}
+
+distclean: clean
+	@rm -Rf ${VLC_DIST_TMP_FILE}
