@@ -13,10 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-# Perian ships as a prefPane, which then unpacks its support libs out of
-# zipfiles if it sees they aren't installed. We do this, as well as apply
-# user template prefs that will disable update checks.
+#  Author:  Tim S
+#  Modified by: Brent B
+#  Created: 2011/04/16
+#  Last Modified: 2011/07/18
+#
+#  Description: Perian ships as a prefPane, which then unpacks its support libs out of
+#  zipfiles if it sees they aren't installed. We do this, as well as apply
+#  user template prefs that will disable update checks.
 
 include /usr/local/share/luggage/luggage.make
 
