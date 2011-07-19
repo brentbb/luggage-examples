@@ -25,17 +25,16 @@
 include /usr/local/share/luggage/luggage.make
 
 TITLE=Perian
-REVERSE_DOMAIN=com.example.corp
+REVERSE_DOMAIN=org.perian
 PACKAGE_VERSION=1.2.2
+SCRATCH_MOUNT=${SCRATCH_D}/dmgmount
 
-PERIAN_DIST_FILE=Perian_1.2.2.dmg
+PERIAN_DIST_FILE=${TITLE}_${PACKAGE_VERSION}.dmg
 PERIAN_DIST_URL=http://perian.cachefly.net/${PERIAN_DIST_FILE}
 PERIAN_PREFPANE=Perian.prefPane
 PERIAN_SUPPORT_DIR=Contents/Resources/Components
 
-PAYLOAD=unpack-perian-dist \
-		unpack-perian-support \
-		pack-Library-PreferencePanes-${PERIAN_PREFPANE} \
+PAYLOAD=pack-Library-PreferencePanes-${PERIAN_PREFPANE} \
 		pack-Library-QuickTime-Perian.component \
 		pack-Library-QuickTime-AC3MovieImport.component \
 		pack-Library-Audio-PlugIns-Components-A52Codec.component \
@@ -43,18 +42,26 @@ PAYLOAD=unpack-perian-dist \
 		pack-user-template-plist-com.cod3r.a52codec.plist \
 		cleanup-prefpane
 
-unpack-perian-dist:
-	curl -O ${PERIAN_DIST_URL}
-	mkdir perian_dist
-	hdiutil attach ${PERIAN_DIST_FILE} -mountpoint perian_dist
-	${CP} -R perian_dist/${PERIAN_PREFPANE} ./
-	hdiutil detach perian_dist
-	rm -R perian_dist
+${PERIAN_DIST_FILE}:
+	curl -L -o ${PERIAN_DIST_FILE} ${PERIAN_DIST_URL}
 
-unpack-perian-support:
-	unzip -o ${PERIAN_PREFPANE}/${PERIAN_SUPPORT_DIR}/Perian.zip -d .
-	unzip -o ${PERIAN_PREFPANE}/${PERIAN_SUPPORT_DIR}/CoreAudio/A52Codec.zip -d .
-	unzip -o ${PERIAN_PREFPANE}/${PERIAN_SUPPORT_DIR}/QuickTime/AC3MovieImport.zip -d .
+# undmg the prefpane
+${PERIAN_PREFPANE}: ${PERIAN_DIST_FILE}
+	@sudo mkdir -p ${SCRATCH_MOUNT}
+	@sudo hdiutil attach -nobrowse ${PERIAN_DIST_FILE} -mountpoint ${SCRATCH_MOUNT}
+	@${DITTO} --noqtn ${SCRATCH_MOUNT}/${PERIAN_PREFPANE} ./${PERIAN_PREFPANE}
+	@sudo hdiutil detach ${SCRATCH_MOUNT}
+	@sudo rm -R ${SCRATCH_MOUNT}
+
+# unpack the support libs from the prefpane
+Perian.component: ${PERIAN_PREFPANE}
+	@${DITTO} -k -x ${PERIAN_PREFPANE}/${PERIAN_SUPPORT_DIR}/Perian.zip ./
+
+A52Codec.component: ${PERIAN_PREFPANE}
+	@${DITTO} -k -x ${PERIAN_PREFPANE}/${PERIAN_SUPPORT_DIR}/CoreAudio/A52Codec.zip ./
+
+AC3MovieImport.component: ${PERIAN_PREFPANE}
+	@${DITTO} -k -x ${PERIAN_PREFPANE}/${PERIAN_SUPPORT_DIR}/QuickTime/AC3MovieImport.zip ./
 
 l_Library_Audio_PlugIns_Components: l_Library
 	@sudo mkdir -p ${WORK_D}/Library/Audio/Plug-Ins/Components
