@@ -76,4 +76,8 @@ pack-Library-Audio-PlugIns-Components-%: % l_Library_Audio_PlugIns_Components
 
 # the support lib archives we don't need to keep around
 cleanup-prefpane:
-	@sudo rm -Rf ${WORK_D}/Library/PreferencePanes/${PERIAN_PREFPANE}/Contents/Resources/Components/*
+	@sudo rm -Rf ${WORK_D}/Library/PreferencePanes/${PERIAN_PREFPANE}/${PERIAN_SUPPORT_DIR}/*
+
+# remove our temporary/unpacked files
+distclean: clean
+	@rm -Rf ${PERIAN_DIST_FILE} ${PERIAN_PREFPANE} Perian.component A52Codec.component AC3MovieImport.component
