@@ -16,7 +16,7 @@
 #  Author:  Tim S
 #  Modified by: Brent B
 #  Created: 2011/04/16
-#  Last Modified: 2011/07/18
+#  Last Modified: 2011/07/25
 #
 #  Description: Perian ships as a prefPane, which then unpacks its support libs out of
 #  zipfiles if it sees they aren't installed. We do this, as well as apply
@@ -26,15 +26,17 @@ include /usr/local/share/luggage/luggage.make
 
 TITLE=Perian
 REVERSE_DOMAIN=org.perian
-PACKAGE_VERSION=1.2.2
+PACKAGE_VERSION=1.2.3
 SCRATCH_MOUNT=${SCRATCH_D}/dmgmount
 
 PERIAN_DIST_FILE=${TITLE}_${PACKAGE_VERSION}.dmg
 PERIAN_DIST_URL=http://perian.cachefly.net/${PERIAN_DIST_FILE}
 PERIAN_PREFPANE=Perian.prefPane
 PERIAN_SUPPORT_DIR=Contents/Resources/Components
+PERIAN_PREF=org.perian.Perian.plist
 
-PAYLOAD=pack-Library-PreferencePanes-${PERIAN_PREFPANE} \
+PAYLOAD=patch-plist \
+		pack-Library-PreferencePanes-${PERIAN_PREFPANE} \
 		pack-Library-QuickTime-Perian.component \
 		pack-Library-QuickTime-AC3MovieImport.component \
 		pack-Library-Audio-PlugIns-Components-A52Codec.component \
@@ -73,6 +75,11 @@ pack-Library-Audio-PlugIns-Components-%: % l_Library_Audio_PlugIns_Components
 	@sudo ${CP} -R $< ${WORK_D}/Library/Audio/Plug-Ins/Components
 	@sudo chown -R root:admin ${WORK_D}/Library/Audio/Plug-Ins/Components/$<
 	@sudo chmod -R 775 ${WORK_D}/Library/Audio/Plug-Ins/Components/$<
+
+patch-plist: 
+	# we need to set the version number in the user pref to disable the nag 
+	# for this specific version
+	/usr/libexec/PlistBuddy -c "Set :LastInstalledVersion ${PACKAGE_VERSION}" ${PERIAN_PREF}
 
 # the support lib archives we don't need to keep around
 cleanup-prefpane:
