@@ -34,5 +34,5 @@ APPZIP_LOCATION="http://calxalot.net/downloads/versions/${TITLE}/${PACKAGE_MAJOR
 
 InCrease.zip:
 	curl ${APPZIP_LOCATION} -o InCrease.zip
-	
+
 PAYLOAD=unzip-applications-InCrease
